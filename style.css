@@ -1,0 +1,294 @@
+:root {
+  font-size: 14px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2 {
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  text-align: center;
+}
+
+.flex {
+  display: flex;
+  gap: 2em;
+}
+
+body {
+  font-family: "Red Hat Text", sans-serif;
+  background-image: url(./images/pattern-hills.svg), url(./images/bg-stars.svg), linear-gradient(to bottom, hsl(234, 17%, 12%), hsl(235, 16%, 14%));
+  background-position: bottom, top;
+  background-repeat: no-repeat, no-repeat;
+  background-size: contain, contain;
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: 80vh auto;
+  place-items: center;
+}
+
+h1 {
+  font-size: 1.8rem;
+  margin-bottom: 3em;
+  color: hsl(0, 0%, 100%);
+}
+
+main {
+  min-height: 200px;
+}
+main .countdown {
+  justify-content: center;
+}
+main section {
+  text-align: center;
+  position: relative;
+}
+main section::before, main section.card-bottom::after, main section.card-top::after, main section section.card::after {
+  content: "";
+  position: absolute;
+  height: 2px;
+  opacity: 0.15;
+  border: 0.3px solid hsl(235, 16%, 14%);
+  box-shadow: inset 0 0.5px 0.5px 0px hsl(235, 16%, 14%), inset 0 -0.5px 0.5px 0px hsl(235, 16%, 14%);
+  place-self: center;
+  display: block;
+  z-index: 50;
+  left: 0;
+  right: 0;
+  top: 49px;
+}
+main section .card {
+  display: grid;
+  margin-inline: auto;
+  background: hsl(236, 21%, 26%);
+  border-radius: 10px;
+  font-size: 4rem;
+  color: hsl(345, 95%, 68%);
+  width: 100px;
+  aspect-ratio: 1/1;
+  box-shadow: 0 8px hsl(234, 17%, 12%);
+  position: relative;
+}
+main section .card .current, main section .card .next {
+  grid-area: 1/1/span 2/span 1;
+  place-self: center;
+  display: grid;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  background: hsl(236, 21%, 26%);
+  perspective: 500px;
+}
+main section .card .current {
+  z-index: 3;
+}
+main section .card .number {
+  grid-area: 1/1/span 2/span 1;
+  place-self: center;
+}
+main section .card::before, main section .card::after {
+  content: "";
+  background: hsl(234, 17%, 12%);
+  height: 8px;
+  width: 4px;
+  border-radius: 0 50px 50px 0;
+  position: absolute;
+  left: 0px;
+  place-self: center;
+  z-index: 51;
+  box-shadow: 0 0 0 1px hsl(234, 17%, 12%);
+}
+main section .card::after {
+  left: auto;
+  right: 0px;
+  border-radius: 50px 0 0 50px;
+}
+main section h2 {
+  color: hsl(237, 18%, 59%);
+  font-size: 1rem;
+  margin-top: 1em;
+}
+
+@media (max-width: 500px) {
+  .flex {
+    gap: 1em;
+  }
+  body {
+    background-position: 90% 100%, top, top;
+    background-size: 250% 25%, auto, auto;
+    grid-template-rows: 90vh auto;
+    align-items: start;
+  }
+  main {
+    margin: 8em 0;
+  }
+  main section::before, main section.card-bottom::after, main section.card-top::after, main section section.card::after {
+    top: 37px;
+    width: 74px;
+    height: 1.5px;
+  }
+  main section .card {
+    width: 74px;
+    font-size: 3rem;
+  }
+  main section .card::before, main section .card::after {
+    height: 6px;
+    width: 3px;
+    transform: translateY(2px);
+  }
+  main section .card::after {
+    height: 6px;
+    width: 3px;
+    border-radius: 50px 0 0 50px;
+  }
+  main h2 {
+    font-size: 0.2rem;
+    letter-spacing: 1px;
+  }
+}
+.card-top, .card-bottom {
+  background: hsl(236, 21%, 26%);
+  grid-column: 1/span 1;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  overflow: hidden;
+  position: absolute;
+  height: 49px;
+  width: 100%;
+  z-index: 10;
+}
+.card-top .number, .card-bottom .number {
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+
+.card-top {
+  background: #2a2c41;
+  box-shadow: 0 0.2px 2px hsl(235, 16%, 14%);
+  transform-origin: center top;
+  border-radius: 10px 10px 0px 0px;
+}
+.card-top .number {
+  top: 25%;
+  color: #fa4774;
+}
+.card-top::before, .card-top::after, main section .card-top.card::after {
+  content: "";
+  background-color: hsl(234, 17%, 12%);
+  height: 2px;
+  width: 3px;
+  border-radius: 0 50px 0 0;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 51;
+}
+.card-top::after {
+  border-radius: 50px 0 0 0;
+  left: auto;
+  right: 0;
+}
+
+.card-bottom {
+  grid-row: 2/span 1;
+  box-shadow: 0 -0.2px 2px hsl(235, 16%, 14%);
+  transform-origin: center bottom;
+  border-radius: 0px 0px 10px 10px;
+  margin-top: 2px;
+}
+.card-bottom .number {
+  bottom: calc(25% + 2px);
+}
+.card-bottom::before, .card-bottom::after, main section .card-bottom.card::after {
+  content: "";
+  background-color: hsl(234, 17%, 12%);
+  height: 2px;
+  width: 3px;
+  border-radius: 0 0 50px 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 51;
+}
+.card-bottom::after {
+  border-radius: 0 0 0 50px;
+  left: auto;
+  right: 0;
+}
+
+.flip .current .card-top {
+  animation: flipTop 0.8s ease-out;
+  animation-fill-mode: both;
+}
+
+.flip.current {
+  background: none;
+}
+
+.flip .current .card-bottom {
+  animation: flipBottom 0.8s ease-out;
+  animation-fill-mode: both;
+}
+
+@keyframes flipTop {
+  0% {
+    transform: rotateX(0deg);
+    z-index: 2;
+  }
+  0%, 99% {
+    border-bottom: 1px solid hsl(235, 16%, 14%);
+    opacity: 0.99;
+  }
+  100% {
+    transform: rotateX(90deg);
+    opacity: 0;
+  }
+}
+@keyframes flipBottom {
+  0% {
+    z-index: 2;
+    transform: rotateX(0deg);
+  }
+  0%, 99% {
+    opacity: 0.99;
+    border-top: 1px solid hsl(235, 16%, 14%);
+  }
+  100% {
+    transform: rotateX(-90deg);
+    opacity: 0;
+  }
+}
+@media (max-width: 500px) {
+  .card-top, .card-bottom {
+    height: 37px;
+  }
+}
+.social-links {
+  justify-content: center;
+}
+.social-links a {
+  color: hsl(237, 18%, 59%);
+}
+.social-links a:hover {
+  color: hsl(345, 95%, 68%);
+}
+.social-links .fa-brands {
+  font-size: 1.8rem;
+}
+
+.attribution {
+  font-size: 11px;
+  text-align: center;
+}
+
+.attribution a {
+  color: hsl(237, 18%, 59%);
+}
+.attribution a:hover {
+  color: hsl(345, 95%, 68%);
+}/*# sourceMappingURL=style.css.map */
